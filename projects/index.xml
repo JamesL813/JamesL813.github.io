@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects on James Lawton</title>
+    <link>http://JamesL813.github.io/projects/</link>
+    <description>Recent content in Projects on James Lawton</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 29 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://JamesL813.github.io/projects/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Raindrop Air Resistance Simulation</title>
+      <link>http://JamesL813.github.io/projects/raindropsim/</link>
+      <pubDate>Thu, 29 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://JamesL813.github.io/projects/raindropsim/</guid>
+      <description>A simple python simulation
+Simulates a falling raindrop with air resistance and mass Used to write a paper analyzing how air resistance affects terminal velocity and distance traveled </description>
+    </item>
+    
+    <item>
+      <title>Dijkstra’s Path-finding Algorithm Simulation</title>
+      <link>http://JamesL813.github.io/projects/dijkstraspathfinding/</link>
+      <pubDate>Wed, 29 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://JamesL813.github.io/projects/dijkstraspathfinding/</guid>
+      <description>A simple python simulation
+Utilizes Dijkstra’s Path-finding Algorithm Finds the shortest paths to each point from a starting point on a directed graph. </description>
+    </item>
+    
+    <item>
+      <title>Geographic Information System</title>
+      <link>http://JamesL813.github.io/projects/geographicinformationsystem/</link>
+      <pubDate>Sun, 29 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://JamesL813.github.io/projects/geographicinformationsystem/</guid>
+      <description> Tool to parse through Geographic Data Uses a custom built PR Quad-Tree and Hash Table to store locations and names. Can easily query by location range and name range. </description>
+    </item>
+    
+    <item>
+      <title>Hash Table</title>
+      <link>http://JamesL813.github.io/projects/hashtable/</link>
+      <pubDate>Fri, 29 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://JamesL813.github.io/projects/hashtable/</guid>
+      <description> Data structure made to be versatile with a variable bucket size. Less space efficiency but more speed when querying </description>
+    </item>
+    
+    <item>
+      <title>PR Quad Tree</title>
+      <link>http://JamesL813.github.io/projects/prquadtree/</link>
+      <pubDate>Tue, 29 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://JamesL813.github.io/projects/prquadtree/</guid>
+      <description> Data structure similar to a binary tree. Each node contains four, a Northwest, Northeast, Southwest, and Southeast Effecient when storing and querying data that can be identified by a location coordinate. </description>
+    </item>
+    
+  </channel>
+</rss>

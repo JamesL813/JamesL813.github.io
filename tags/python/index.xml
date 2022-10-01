@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on James Lawton</title>
+    <link>http://JamesL813.github.io/tags/python/</link>
+    <description>Recent content in Python on James Lawton</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 29 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://JamesL813.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Raindrop Air Resistance Simulation</title>
+      <link>http://JamesL813.github.io/projects/raindropsim/</link>
+      <pubDate>Thu, 29 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://JamesL813.github.io/projects/raindropsim/</guid>
+      <description>A simple python simulation
+Simulates a falling raindrop with air resistance and mass Used to write a paper analyzing how air resistance affects terminal velocity and distance traveled </description>
+    </item>
+    
+  </channel>
+</rss>
