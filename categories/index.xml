@@ -2,33 +2,33 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Categories on James Lawton</title>
-        <link>https://example.com/categories/</link>
+        <link>https://JamesL813.github.io/categories/</link>
         <description>Recent content in Categories on James Lawton</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Mon, 11 Mar 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 11 Mar 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://JamesL813.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>syntax</title>
-        <link>https://example.com/categories/syntax/</link>
+        <link>https://JamesL813.github.io/categories/syntax/</link>
         <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/categories/syntax/</guid>
+        <guid>https://JamesL813.github.io/categories/syntax/</guid>
         <description></description>
         </item>
         <item>
         <title>themes</title>
-        <link>https://example.com/categories/themes/</link>
+        <link>https://JamesL813.github.io/categories/themes/</link>
         <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/categories/themes/</guid>
+        <guid>https://JamesL813.github.io/categories/themes/</guid>
         <description></description>
         </item>
         <item>
         <title>Test</title>
-        <link>https://example.com/categories/test/</link>
+        <link>https://JamesL813.github.io/categories/test/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/categories/test/</guid>
-        <description>&lt;img src="https://example.com/categories/test/hutomo-abrianto-l2jk-uxb1BY-unsplash.jpg" alt="Featured image of post Test" /&gt;</description>
+        <guid>https://JamesL813.github.io/categories/test/</guid>
+        <description>&lt;img src="https://JamesL813.github.io/categories/test/hutomo-abrianto-l2jk-uxb1BY-unsplash.jpg" alt="Featured image of post Test" /&gt;</description>
         </item>
         
     </channel>

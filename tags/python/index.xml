@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Python on James Lawton</title>
-        <link>https://example.com/tags/python/</link>
+        <link>https://JamesL813.github.io/tags/python/</link>
         <description>Recent content in Python on James Lawton</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Thu, 29 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/tags/python/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 29 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://JamesL813.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Raindrop Air Resistance Simulation</title>
-        <link>https://example.com/p/raindrop-air-resistance-simulation/</link>
+        <link>https://JamesL813.github.io/p/raindrop-air-resistance-simulation/</link>
         <pubDate>Thu, 29 Sep 2022 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/p/raindrop-air-resistance-simulation/</guid>
-        <description>&lt;img src="https://example.com/p/raindrop-air-resistance-simulation/cover.jpg" alt="Featured image of post Raindrop Air Resistance Simulation" /&gt;&lt;p&gt;A simple python simulation&lt;/p&gt;
+        <guid>https://JamesL813.github.io/p/raindrop-air-resistance-simulation/</guid>
+        <description>&lt;img src="https://JamesL813.github.io/p/raindrop-air-resistance-simulation/cover.jpg" alt="Featured image of post Raindrop Air Resistance Simulation" /&gt;&lt;p&gt;A simple python simulation&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Simulates a falling raindrop with air resistance and mass&lt;/li&gt;
 &lt;li&gt;Used to write a paper analyzing how air resistance affects terminal velocity and distance traveled&lt;/li&gt;
@@ -21,11 +21,11 @@
         </item>
         <item>
         <title>Schrodinger Equation Simulation</title>
-        <link>https://example.com/p/schrodinger-equation-simulation/</link>
+        <link>https://JamesL813.github.io/p/schrodinger-equation-simulation/</link>
         <pubDate>Thu, 29 Sep 2022 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/p/schrodinger-equation-simulation/</guid>
-        <description>&lt;img src="https://example.com/p/schrodinger-equation-simulation/cover.jpg" alt="Featured image of post Schrodinger Equation Simulation" /&gt;&lt;p&gt;A simple python simulation&lt;/p&gt;
+        <guid>https://JamesL813.github.io/p/schrodinger-equation-simulation/</guid>
+        <description>&lt;img src="https://JamesL813.github.io/p/schrodinger-equation-simulation/cover.jpg" alt="Featured image of post Schrodinger Equation Simulation" /&gt;&lt;p&gt;A simple python simulation&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Simulates a falling raindrop with air resistance and mass&lt;/li&gt;
 &lt;li&gt;Used to write a paper analyzing how air resistance affects terminal velocity and distance traveled&lt;/li&gt;

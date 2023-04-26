@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Projects on James Lawton</title>
-        <link>https://example.com/post/</link>
+        <link>https://JamesL813.github.io/post/</link>
         <description>Recent content in Projects on James Lawton</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Thu, 29 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 29 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://JamesL813.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Raindrop Air Resistance Simulation</title>
-        <link>https://example.com/p/raindrop-air-resistance-simulation/</link>
+        <link>https://JamesL813.github.io/p/raindrop-air-resistance-simulation/</link>
         <pubDate>Thu, 29 Sep 2022 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/p/raindrop-air-resistance-simulation/</guid>
-        <description>&lt;img src="https://example.com/p/raindrop-air-resistance-simulation/cover.jpg" alt="Featured image of post Raindrop Air Resistance Simulation" /&gt;&lt;p&gt;A simple python simulation&lt;/p&gt;
+        <guid>https://JamesL813.github.io/p/raindrop-air-resistance-simulation/</guid>
+        <description>&lt;img src="https://JamesL813.github.io/p/raindrop-air-resistance-simulation/cover.jpg" alt="Featured image of post Raindrop Air Resistance Simulation" /&gt;&lt;p&gt;A simple python simulation&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Simulates a falling raindrop with air resistance and mass&lt;/li&gt;
 &lt;li&gt;Used to write a paper analyzing how air resistance affects terminal velocity and distance traveled&lt;/li&gt;
@@ -21,11 +21,11 @@
         </item>
         <item>
         <title>Schrodinger Equation Simulation</title>
-        <link>https://example.com/p/schrodinger-equation-simulation/</link>
+        <link>https://JamesL813.github.io/p/schrodinger-equation-simulation/</link>
         <pubDate>Thu, 29 Sep 2022 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/p/schrodinger-equation-simulation/</guid>
-        <description>&lt;img src="https://example.com/p/schrodinger-equation-simulation/cover.jpg" alt="Featured image of post Schrodinger Equation Simulation" /&gt;&lt;p&gt;A simple python simulation&lt;/p&gt;
+        <guid>https://JamesL813.github.io/p/schrodinger-equation-simulation/</guid>
+        <description>&lt;img src="https://JamesL813.github.io/p/schrodinger-equation-simulation/cover.jpg" alt="Featured image of post Schrodinger Equation Simulation" /&gt;&lt;p&gt;A simple python simulation&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Simulates a falling raindrop with air resistance and mass&lt;/li&gt;
 &lt;li&gt;Used to write a paper analyzing how air resistance affects terminal velocity and distance traveled&lt;/li&gt;
@@ -34,11 +34,11 @@
         </item>
         <item>
         <title>Dijkstra’s Path-finding Algorithm Simulation</title>
-        <link>https://example.com/p/dijkstras-path-finding-algorithm-simulation/</link>
+        <link>https://JamesL813.github.io/p/dijkstras-path-finding-algorithm-simulation/</link>
         <pubDate>Wed, 29 Jun 2022 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/p/dijkstras-path-finding-algorithm-simulation/</guid>
-        <description>&lt;img src="https://example.com/p/dijkstras-path-finding-algorithm-simulation/cover.jpg" alt="Featured image of post Dijkstra’s Path-finding Algorithm Simulation" /&gt;&lt;p&gt;A simple python simulation&lt;/p&gt;
+        <guid>https://JamesL813.github.io/p/dijkstras-path-finding-algorithm-simulation/</guid>
+        <description>&lt;img src="https://JamesL813.github.io/p/dijkstras-path-finding-algorithm-simulation/cover.jpg" alt="Featured image of post Dijkstra’s Path-finding Algorithm Simulation" /&gt;&lt;p&gt;A simple python simulation&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Utilizes Dijkstra’s Path-finding Algorithm&lt;/li&gt;
 &lt;li&gt;Finds the shortest paths to each point from a starting point on a directed graph.&lt;/li&gt;
@@ -47,11 +47,11 @@
         </item>
         <item>
         <title>Geographic Information System</title>
-        <link>https://example.com/p/geographic-information-system/</link>
+        <link>https://JamesL813.github.io/p/geographic-information-system/</link>
         <pubDate>Sun, 29 May 2022 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/p/geographic-information-system/</guid>
-        <description>&lt;img src="https://example.com/p/geographic-information-system/cover.jpg" alt="Featured image of post Geographic Information System" /&gt;&lt;ul&gt;
+        <guid>https://JamesL813.github.io/p/geographic-information-system/</guid>
+        <description>&lt;img src="https://JamesL813.github.io/p/geographic-information-system/cover.jpg" alt="Featured image of post Geographic Information System" /&gt;&lt;ul&gt;
 &lt;li&gt;Tool to parse through Geographic Data&lt;/li&gt;
 &lt;li&gt;Uses a custom built PR Quad-Tree and Hash Table to store locations and names.&lt;/li&gt;
 &lt;li&gt;Can easily query by location range and name range.&lt;/li&gt;
@@ -60,11 +60,11 @@
         </item>
         <item>
         <title>Hash Table</title>
-        <link>https://example.com/p/hash-table/</link>
+        <link>https://JamesL813.github.io/p/hash-table/</link>
         <pubDate>Fri, 29 Apr 2022 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/p/hash-table/</guid>
-        <description>&lt;img src="https://example.com/p/hash-table/cover.jpg" alt="Featured image of post Hash Table" /&gt;&lt;ul&gt;
+        <guid>https://JamesL813.github.io/p/hash-table/</guid>
+        <description>&lt;img src="https://JamesL813.github.io/p/hash-table/cover.jpg" alt="Featured image of post Hash Table" /&gt;&lt;ul&gt;
 &lt;li&gt;Data structure made to be versatile with a variable bucket size.&lt;/li&gt;
 &lt;li&gt;Less space efficiency but more speed when querying&lt;/li&gt;
 &lt;/ul&gt;
@@ -72,11 +72,11 @@
         </item>
         <item>
         <title>PR Quad Tree</title>
-        <link>https://example.com/p/pr-quad-tree/</link>
+        <link>https://JamesL813.github.io/p/pr-quad-tree/</link>
         <pubDate>Tue, 29 Mar 2022 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/p/pr-quad-tree/</guid>
-        <description>&lt;img src="https://example.com/p/pr-quad-tree/cover.jpg" alt="Featured image of post PR Quad Tree" /&gt;&lt;ul&gt;
+        <guid>https://JamesL813.github.io/p/pr-quad-tree/</guid>
+        <description>&lt;img src="https://JamesL813.github.io/p/pr-quad-tree/cover.jpg" alt="Featured image of post PR Quad Tree" /&gt;&lt;ul&gt;
 &lt;li&gt;Data structure similar to a binary tree.&lt;/li&gt;
 &lt;li&gt;Each node contains four, a Northwest, Northeast, Southwest, and Southeast&lt;/li&gt;
 &lt;li&gt;Efficient when storing and querying data that can be identified by a location coordinate.&lt;/li&gt;
@@ -85,11 +85,11 @@
         </item>
         <item>
         <title>Markdown Syntax Guide</title>
-        <link>https://example.com/p/markdown-syntax-guide/</link>
+        <link>https://JamesL813.github.io/p/markdown-syntax-guide/</link>
         <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/p/markdown-syntax-guide/</guid>
-        <description>&lt;img src="https://example.com/p/markdown-syntax-guide/pawel-czerwinski-8uZPynIu-rQ-unsplash.jpg" alt="Featured image of post Markdown Syntax Guide" /&gt;&lt;p&gt;This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.&lt;/p&gt;
+        <guid>https://JamesL813.github.io/p/markdown-syntax-guide/</guid>
+        <description>&lt;img src="https://JamesL813.github.io/p/markdown-syntax-guide/pawel-czerwinski-8uZPynIu-rQ-unsplash.jpg" alt="Featured image of post Markdown Syntax Guide" /&gt;&lt;p&gt;This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.&lt;/p&gt;
 &lt;h2 id=&#34;headings&#34;&gt;Headings&lt;/h2&gt;
 &lt;p&gt;The following HTML &lt;code&gt;&amp;lt;h1&amp;gt;&lt;/code&gt;—&lt;code&gt;&amp;lt;h6&amp;gt;&lt;/code&gt; elements represent six levels of section headings. &lt;code&gt;&amp;lt;h1&amp;gt;&lt;/code&gt; is the highest section level while &lt;code&gt;&amp;lt;h6&amp;gt;&lt;/code&gt; is the lowest.&lt;/p&gt;
 &lt;h1 id=&#34;h1&#34;&gt;H1&lt;/h1&gt;
@@ -316,10 +316,10 @@
         </item>
         <item>
         <title>Math Typesetting</title>
-        <link>https://example.com/p/math-typesetting/</link>
+        <link>https://JamesL813.github.io/p/math-typesetting/</link>
         <pubDate>Fri, 08 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/p/math-typesetting/</guid>
+        <guid>https://JamesL813.github.io/p/math-typesetting/</guid>
         <description>&lt;p&gt;Mathematical notation in a Hugo project can be enabled by using third party JavaScript libraries.&lt;/p&gt;
 &lt;p&gt;In this example we will be using &lt;a class=&#34;link&#34; href=&#34;https://katex.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;KaTeX&lt;/a&gt;&lt;/p&gt;

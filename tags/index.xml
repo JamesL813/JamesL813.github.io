@@ -2,56 +2,56 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Tags on James Lawton</title>
-        <link>https://example.com/tags/</link>
+        <link>https://JamesL813.github.io/tags/</link>
         <description>Recent content in Tags on James Lawton</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Thu, 29 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 29 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://JamesL813.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Python</title>
-        <link>https://example.com/tags/python/</link>
+        <link>https://JamesL813.github.io/tags/python/</link>
         <pubDate>Thu, 29 Sep 2022 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/tags/python/</guid>
+        <guid>https://JamesL813.github.io/tags/python/</guid>
         <description></description>
         </item>
         <item>
         <title>Java</title>
-        <link>https://example.com/tags/java/</link>
+        <link>https://JamesL813.github.io/tags/java/</link>
         <pubDate>Wed, 29 Jun 2022 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/tags/java/</guid>
+        <guid>https://JamesL813.github.io/tags/java/</guid>
         <description></description>
         </item>
         <item>
         <title>css</title>
-        <link>https://example.com/tags/css/</link>
+        <link>https://JamesL813.github.io/tags/css/</link>
         <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/tags/css/</guid>
+        <guid>https://JamesL813.github.io/tags/css/</guid>
         <description></description>
         </item>
         <item>
         <title>html</title>
-        <link>https://example.com/tags/html/</link>
+        <link>https://JamesL813.github.io/tags/html/</link>
         <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/tags/html/</guid>
+        <guid>https://JamesL813.github.io/tags/html/</guid>
         <description></description>
         </item>
         <item>
         <title>markdown</title>
-        <link>https://example.com/tags/markdown/</link>
+        <link>https://JamesL813.github.io/tags/markdown/</link>
         <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/tags/markdown/</guid>
+        <guid>https://JamesL813.github.io/tags/markdown/</guid>
         <description></description>
         </item>
         <item>
         <title>themes</title>
-        <link>https://example.com/tags/themes/</link>
+        <link>https://JamesL813.github.io/tags/themes/</link>
         <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/tags/themes/</guid>
+        <guid>https://JamesL813.github.io/tags/themes/</guid>
         <description></description>
         </item>
         
