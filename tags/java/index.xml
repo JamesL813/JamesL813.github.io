@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Java on James Lawton</title>
+        <link>https://example.com/tags/java/</link>
+        <description>Recent content in Java on James Lawton</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Wed, 29 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/tags/java/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Dijkstra’s Path-finding Algorithm Simulation</title>
+        <link>https://example.com/p/dijkstras-path-finding-algorithm-simulation/</link>
+        <pubDate>Wed, 29 Jun 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://example.com/p/dijkstras-path-finding-algorithm-simulation/</guid>
+        <description>&lt;img src="https://example.com/p/dijkstras-path-finding-algorithm-simulation/cover.jpg" alt="Featured image of post Dijkstra’s Path-finding Algorithm Simulation" /&gt;&lt;p&gt;A simple python simulation&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Utilizes Dijkstra’s Path-finding Algorithm&lt;/li&gt;
+&lt;li&gt;Finds the shortest paths to each point from a starting point on a directed graph.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
+        <title>Geographic Information System</title>
+        <link>https://example.com/p/geographic-information-system/</link>
+        <pubDate>Sun, 29 May 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://example.com/p/geographic-information-system/</guid>
+        <description>&lt;img src="https://example.com/p/geographic-information-system/cover.jpg" alt="Featured image of post Geographic Information System" /&gt;&lt;ul&gt;
+&lt;li&gt;Tool to parse through Geographic Data&lt;/li&gt;
+&lt;li&gt;Uses a custom built PR Quad-Tree and Hash Table to store locations and names.&lt;/li&gt;
+&lt;li&gt;Can easily query by location range and name range.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
+        <title>Hash Table</title>
+        <link>https://example.com/p/hash-table/</link>
+        <pubDate>Fri, 29 Apr 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://example.com/p/hash-table/</guid>
+        <description>&lt;img src="https://example.com/p/hash-table/cover.jpg" alt="Featured image of post Hash Table" /&gt;&lt;ul&gt;
+&lt;li&gt;Data structure made to be versatile with a variable bucket size.&lt;/li&gt;
+&lt;li&gt;Less space efficiency but more speed when querying&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
+        <title>PR Quad Tree</title>
+        <link>https://example.com/p/pr-quad-tree/</link>
+        <pubDate>Tue, 29 Mar 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://example.com/p/pr-quad-tree/</guid>
+        <description>&lt;img src="https://example.com/p/pr-quad-tree/cover.jpg" alt="Featured image of post PR Quad Tree" /&gt;&lt;ul&gt;
+&lt;li&gt;Data structure similar to a binary tree.&lt;/li&gt;
+&lt;li&gt;Each node contains four, a Northwest, Northeast, Southwest, and Southeast&lt;/li&gt;
+&lt;li&gt;Efficient when storing and querying data that can be identified by a location coordinate.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
