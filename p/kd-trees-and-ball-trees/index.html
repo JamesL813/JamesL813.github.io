@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Guides to using KD and Ball Trees for kNN and data visualization.'>
+<title>KD Trees and Ball Trees</title>
+
+<link rel='canonical' href='https://JamesL813.github.io/p/kd-trees-and-ball-trees/'>
+
+<link rel="stylesheet" href="/scss/style.min.8191399262444ab68b72a18c97392f5349be20a1615d77445be51e974c144cff.css"><meta property='og:title' content='KD Trees and Ball Trees'>
+<meta property='og:description' content='Guides to using KD and Ball Trees for kNN and data visualization.'>
+<meta property='og:url' content='https://JamesL813.github.io/p/kd-trees-and-ball-trees/'>
+<meta property='og:site_name' content='James Lawton'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='R' /><meta property='article:tag' content='Markdown' /><meta property='article:published_time' content='2023-04-25T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-04-25T00:00:00&#43;00:00'/><meta property='og:image' content='https://JamesL813.github.io/img/ball_tree_diagram.jpg' />
+<meta name="twitter:title" content="KD Trees and Ball Trees">
+<meta name="twitter:description" content="Guides to using KD and Ball Trees for kNN and data visualization."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://JamesL813.github.io/img/ball_tree_diagram.jpg' />
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🍥</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">James Lawton</a></h1>
+            <h2 class="site-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#motivation">Motivation</a></li>
+    <li><a href="#intro-to-decision-trees">Intro to Decision Trees</a></li>
+    <li><a href="#kd-trees">KD Trees</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#limitations">Limitations</a></li>
+    <li><a href="#example-the-iris-dataset">Example: The IRIS Dataset</a></li>
+    <li><a href="#ball-trees">Ball trees</a></li>
+    <li><a href="#motivation-1">Motivation</a></li>
+    <li><a href="#example-the-iris-dataset-1">Example: The IRIS dataset</a></li>
+    <li><a href="#housing-data">Housing Data</a></li>
+    <li><a href="#kd-tree-approach">KD tree approach</a></li>
+    <li><a href="#confusion-matrix">Confusion Matrix</a></li>
+    <li><a href="#ball-tree-approach">Ball Tree Approach</a></li>
+    <li><a href="#knn-approach">kNN Approach</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/kd-trees-and-ball-trees/">
+                
+                    <img src="/img/ball_tree_diagram.jpg" loading="lazy" alt="Featured image of post KD Trees and Ball Trees" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/data-science/" >
+                Data Science
+            </a>
+        
+            <a href="/categories/data-visualization/" >
+                Data Visualization
+            </a>
+        
+            <a href="/categories/data-analysis/" >
+                Data Analysis
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/kd-trees-and-ball-trees/">KD Trees and Ball Trees</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            Guides to using KD and Ball Trees for kNN and data visualization.
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Apr 25, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    7 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="motivation">Motivation</h2>
+<p>Imagine we are interested in determining the CMDA 4654 classmate that lives nearest to us. The “brute force” approach would be to ask each classmate where they live (i.e. make the search region , compute the distance between their house and ours, and then select the minimum distance. This is quite computationally expensive. In fact, it has a time complexity of O(2n), assuming 2-dimensional distance computations. <br>
+<br>
+A better approach might be to partition the class into different groups based on the broader attributes of their location. For instance, we can ask everyone who lives in Blacksburg to stand on one side of the classroom, while those that don’t (i.e. live in Christiansburg) stand on the other. Then, if we live in Blacksburg, we are able to reduce the size of the group that we compute our distance to. <br>
+<br>
+We can continue to partition the group based on other factors (i.e. on-campus vs off-campus, north vs south, etc) to further reduce the size of the search group. Then, the time complexity of our algorithm is going to be O(n+log(n)), which is much better than vanilla kNN.<br>
+<br>
+However, we might find someone who lives on the edge of campus and whose nearest neighbor is off-campus, which will never be found due to the clustering nature of this algorithm.<br>
+<br>
+This idea of partitioning the data into subsets that will later be used to search for nearest neighbor within that subset (and hope that it’s the global nearest neighbor) is the idea behind clustering using k-d trees and ball trees.</p>
+<h2 id="intro-to-decision-trees">Intro to Decision Trees</h2>
+<p>A tree is a common data structure composed of a hierarchical structure with branch nodes, and leaf nodes. They can be useful for providing a visual representation for a data set or model. <br>
+<br>
+A binary tree is one of the simplest implementations of the structure. It’s simply a way of storing a set of ordered data. The rules that make up a binary tree are as follows:<br>
+\</p>
+<ul>
+<li>Each node must have at most 2 children</li>
+<li>A node’s left child must come before it</li>
+<li>A node’s right child must come after it.</li>
+</ul>
+<p>Using these simple rules, we can create a data structure that is computationally efficient to retrieve data from.\</p>
+<p>Notice that each node in this example tree not only stores a data point, but it also represents a decision that each incoming data point has to make as it goes through the tree. Whether the result of this decision is true or false determines which direction the point will move next.</p>
+<p><img src="/p/kd-trees-and-ball-trees/img/intro_to_decision_tree_graph.png"
+	width="505"
+	height="442"
+	srcset="/p/kd-trees-and-ball-trees/img/intro_to_decision_tree_graph_hu04e33ba3a4d7e94c30cb7e311964b447_21767_480x0_resize_box_3.png 480w, /p/kd-trees-and-ball-trees/img/intro_to_decision_tree_graph_hu04e33ba3a4d7e94c30cb7e311964b447_21767_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="Binary Search Tree"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="114"
+		data-flex-basis="274px"
+	
+></p>
+<hr>
+<h2 id="kd-trees">KD Trees</h2>
+<p>A K-D tree (or a K-dimensional tree) is a special type of decision tree that can organize data for efficient spatial search or nearest-neighbor search within K-dimensional space.<br>
+<br>
+In data modeling, each one of K dimensions normally represents a specific feature of the data set.<br>
+<br>
+The basic idea of k-d trees is to partition our feature space along the axes and prune subtrees that are too far away from our nearest neighbor(s) (essentially depth first search with pruning).</p>
+<p><img src="/p/kd-trees-and-ball-trees/img/kdtrees_pic.png"
+	width="572"
+	height="242"
+	srcset="/p/kd-trees-and-ball-trees/img/kdtrees_pic_huaeb8696dc0c495cc4337f29b70c7fd6b_53351_480x0_resize_box_3.png 480w, /p/kd-trees-and-ball-trees/img/kdtrees_pic_huaeb8696dc0c495cc4337f29b70c7fd6b_53351_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="KD Trees [Source: Carnegie Mellon]"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="236"
+		data-flex-basis="567px"
+	
+></p>
+<h2 id="process">Process</h2>
+<p>The basic idea of k-d trees is to partition our feature space along the axes and prune subtrees that are too far away from our nearest neighbor(s).<br>
+\</p>
+<ul>
+<li>We construct the tree by partitioning our data into halves along one feature</li>
+<li>We then rotate through our features based on which of them have the largest maximum variance and continue partitioning our data.</li>
+</ul>
+<p><br>
+When considering a test point and its nearest neighbors, we calculate the distance between them, call it $x_d$
+\</p>
+<ul>
+<li>Compare $x_d$ to the distance between the point and the partition, $x_p$</li>
+<li>If $x_p &gt; x_d$, we can prune that subtree</li>
+<li>If $x_p &lt; x_d$, recalculate nearest neighbor</li>
+</ul>
+<p><br>
+Continue until all leaf nodes have been visited.</p>
+<h2 id="limitations">Limitations</h2>
+<p>K-d trees are really only effective in low dimensional spaces and is not very accurate in high dimensional spaces.<br>
+\</p>
+<ul>
+<li>In higher dimensions, the points end up being close to every partition (i.e. a million partition lines)</li>
+<li>Partitions are along axes and span the entire feature space, which proves to be problematic as the number of features grows</li>
+<li>Nearest neighbors begins to lose meaning since the distance between the closest and farthest point are very similar.</li>
+</ul>
+<h2 id="example-the-iris-dataset">Example: The IRIS Dataset</h2>
+<p>We will use the Iris data to demonstrate KD trees using</p>
+<p><img src="/p/kd-trees-and-ball-trees/img/kd_box1.png"
+	width="394"
+	height="320"
+	srcset="/p/kd-trees-and-ball-trees/img/kd_box1_hu1c908732a4bdfe0f8c92c99bc0e57377_27367_480x0_resize_box_3.png 480w, /p/kd-trees-and-ball-trees/img/kd_box1_hu1c908732a4bdfe0f8c92c99bc0e57377_27367_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="KD Tree 1"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="123"
+		data-flex-basis="295px"
+	
+></p>
+<hr>
+<p><img src="/p/kd-trees-and-ball-trees/img/kd_box2.png"
+	width="394"
+	height="321"
+	srcset="/p/kd-trees-and-ball-trees/img/kd_box2_huafa4ea0738b4e8dbee7e39d7197906e6_27905_480x0_resize_box_3.png 480w, /p/kd-trees-and-ball-trees/img/kd_box2_huafa4ea0738b4e8dbee7e39d7197906e6_27905_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="KD Tree 2"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="122"
+		data-flex-basis="294px"
+	
+></p>
+<hr>
+<p><img src="/p/kd-trees-and-ball-trees/img/kd_box3.png"
+	width="979"
+	height="792"
+	srcset="/p/kd-trees-and-ball-trees/img/kd_box3_hueb654af92ec2427c686e6d81f28d5ea9_119668_480x0_resize_box_3.png 480w, /p/kd-trees-and-ball-trees/img/kd_box3_hueb654af92ec2427c686e6d81f28d5ea9_119668_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="KD Tree 3"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="123"
+		data-flex-basis="296px"
+	
+></p>
+<hr>
+<p>Code to draw these rectangles in R:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">library(ggplot2)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ggplot(iris, aes(x=Petal.Length, y=Petal.Width, col=Species)) + geom_point() + 
+</span></span><span class="line"><span class="cl">  labs(x=&#34;Petal Length&#34;, y=&#34;Petal Width&#34;, title = &#34;Petal Length vs. Petal Width&#34;) + theme_bw() + 
+</span></span><span class="line"><span class="cl">  #geom_vline(xintercept = median(iris$Petal.Length)) + 
+</span></span><span class="line"><span class="cl">  geom_rect(aes(xmin=4.35, xmax=6.9, ymin=1.8, ymax=2.5), fill=NA, color=&#34;blue&#34;, alpha=0.25) + 
+</span></span><span class="line"><span class="cl">  geom_rect(aes(xmin=4.35, xmax=6.9, ymin=0, ymax=1.8), fill=NA, color=&#34;blue&#34;, alpha=0.25) + 
+</span></span><span class="line"><span class="cl">  geom_rect(aes(xmin=0, xmax=4.35, ymin=0.3, ymax=2.5), fill=NA, color=&#34;blue&#34;, alpha=0.25) + 
+</span></span><span class="line"><span class="cl">  geom_rect(aes(xmin=0, xmax=4.35, ymin=0, ymax=0.3), fill=NA, color=&#34;blue&#34;, alpha=0.25) + 
+</span></span><span class="line"><span class="cl">  geom_rect(aes(xmin=3.85, xmax=4.35, ymin=0.3, ymax=2.5), fill=NA, color=&#34;green&#34;, alpha=0.25) +
+</span></span><span class="line"><span class="cl">  geom_rect(aes(xmin=0, xmax=3.85, ymin=0.3, ymax=2.5), fill=NA, color=&#34;green&#34;, alpha=0.25) + 
+</span></span><span class="line"><span class="cl">  geom_rect(aes(xmin=0, xmax=1.4, ymin=0, ymax=0.3), fill=NA, color=&#34;green&#34;, alpha=0.25) + 
+</span></span><span class="line"><span class="cl">  geom_rect(aes(xmin=1.4, xmax=4.35, ymin=0, ymax=0.3), fill=NA, color=&#34;green&#34;, alpha=0.25) + 
+</span></span><span class="line"><span class="cl">  geom_rect(aes(xmin=4.35, xmax=4.6, ymin=0, ymax=1.8), fill=NA, color=&#34;green&#34;, alpha=0.25) + 
+</span></span><span class="line"><span class="cl">  geom_rect(aes(xmin=4.6, xmax=6.9, ymin=0, ymax=1.8), fill=NA, color=&#34;green&#34;, alpha=0.25) + 
+</span></span><span class="line"><span class="cl">  geom_rect(aes(xmin=4.35, xmax=5.6, ymin=1.8, ymax=2.5), fill=NA, color=&#34;green&#34;, alpha=0.25) +
+</span></span><span class="line"><span class="cl">  geom_rect(aes(xmin=5.6, xmax=6.9, ymin=1.8, ymax=2.5), fill=NA, color=&#34;green&#34;, alpha=0.25)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<p><img src="/p/kd-trees-and-ball-trees/img/kd_box4.png"
+	width="965"
+	height="789"
+	srcset="/p/kd-trees-and-ball-trees/img/kd_box4_hub6e0809dc7a252b9d414e61530065603_85177_480x0_resize_box_3.png 480w, /p/kd-trees-and-ball-trees/img/kd_box4_hub6e0809dc7a252b9d414e61530065603_85177_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="KD Tree 4"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="122"
+		data-flex-basis="293px"
+	
+></p>
+<h2 id="ball-trees">Ball trees</h2>
+<p>A ball tree is a space partitioning data structure for organizing points in a multidimensional space. <br>
+<br>
+Each internal node partitions the data into two disjoint sets which are associated with different balls. Each point is assigned to the ball with the closest center.</p>
+<p>$$
+D^B (t) =
+\begin{cases}
+\max( |t - B.pivot | - B.radius, D^{B.parent} ),\quad \text{ if }B \neq R \
+\max( |t - B.pivot | - B.radius, D^{B.parent}, 0 ), \text{ if }B = R \
+\end{cases}
+$$</p>
+<p><img src="/p/kd-trees-and-ball-trees/img/ball_tree_diagram.png"
+	width="1319"
+	height="739"
+	srcset="/p/kd-trees-and-ball-trees/img/ball_tree_diagram_hud8d3d15a230b5af5a6a5d95c7875bd46_191053_480x0_resize_box_3.png 480w, /p/kd-trees-and-ball-trees/img/ball_tree_diagram_hud8d3d15a230b5af5a6a5d95c7875bd46_191053_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="ball tree diagram"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="178"
+		data-flex-basis="428px"
+	
+></p>
+<h2 id="motivation-1">Motivation</h2>
+<p>The ball tree algorithm is similar to k-d trees in that they both partition in terms of the feature space, but unlike k-d trees, the trees are partitioned into hyperplane spheres instead of boxes. <br>
+<br>
+While ball tree performance may suffer in lower dimensional feature spaces,
+Ball tree performance of with O(n log(n)) is still better than kNN training speed of O(nd)</p>
+<h2 id="example-the-iris-dataset-1">Example: The IRIS dataset</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">source(&#34;ball_tree.R&#34;)
+</span></span><span class="line"><span class="cl"> # scales all numeric columns
+</span></span><span class="line"><span class="cl">iris_scaled &lt;- iris %&gt;%
+</span></span><span class="line"><span class="cl">  mutate_if(is.numeric, scale)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#                    columns to plot
+</span></span><span class="line"><span class="cl">isc &lt;- iris_scaled[, c(3:4)]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># builds the tree
+</span></span><span class="line"><span class="cl">bt &lt;- build_ball_tree(isc, c(1:nrow(isc), min_points = 2))
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ggplot() + geom_balltree(bt, max_depth = 4) +
+</span></span><span class="line"><span class="cl">    geom_point(
+</span></span><span class="line"><span class="cl">        data = iris_scaled,
+</span></span><span class="line"><span class="cl">        pch = 21,
+</span></span><span class="line"><span class="cl">        size = 3,
+</span></span><span class="line"><span class="cl">        aes(x = Petal.Length, y = Petal.Width, fill = Species)
+</span></span><span class="line"><span class="cl">    ) +
+</span></span><span class="line"><span class="cl">    theme_classic() + scale_colour_stepsn(colors = c(&#34;purple4&#34;,&#34;red&#34;,&#34;orange1&#34;))
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<p><img src="/p/kd-trees-and-ball-trees/img/iris_petal_ball.png"
+	width="3000"
+	height="2550"
+	srcset="/p/kd-trees-and-ball-trees/img/iris_petal_ball_hue56fb58cda12bf7feaa75f33b6f278e0_584223_480x0_resize_box_3.png 480w, /p/kd-trees-and-ball-trees/img/iris_petal_ball_hue56fb58cda12bf7feaa75f33b6f278e0_584223_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="image"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="117"
+		data-flex-basis="282px"
+	
+></p>
+<h2 id="housing-data">Housing Data</h2>
+<p>The housing data we chose to use analyzed 12 different building shapes. Each building differs with respect to the glazing area, the glazing area distribution, and the orientation, amongst other parameters. With the data being found <a class="link" href="https://drive.google.com/drive/u/1/folders/1W_Qc1XoOJUjNWN14925pfaIVZKvrBahP"  target="_blank" rel="noopener"
+    >here</a>.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X1</td>
+<td>Relative Compactness</td>
+</tr>
+<tr>
+<td>X2</td>
+<td>Surface Area</td>
+</tr>
+<tr>
+<td>X3</td>
+<td>Wall Area</td>
+</tr>
+<tr>
+<td>X4</td>
+<td>Roof Area</td>
+</tr>
+<tr>
+<td>X5</td>
+<td>Overall Height</td>
+</tr>
+<tr>
+<td>X6</td>
+<td>Orientation</td>
+</tr>
+<tr>
+<td>X7</td>
+<td>Glazing Area</td>
+</tr>
+<tr>
+<td>X8</td>
+<td>Glazing Area Distribution</td>
+</tr>
+<tr>
+<td>y1</td>
+<td>Heating Load</td>
+</tr>
+<tr>
+<td>y2</td>
+<td>Cooling Load</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="kd-tree-approach">KD tree approach</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">library(FNN)
+</span></span><span class="line"><span class="cl">library(caret)
+</span></span><span class="line"><span class="cl">house = read.csv(&#34;data/ENB2012_data.csv&#34;)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">house1 = house[c(1:768),-c(6,8)]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">index &lt;- sample(1:nrow(house1), round(nrow(house1) * 0.7))
+</span></span><span class="line"><span class="cl">training_df &lt;- house1[index, ]
+</span></span><span class="line"><span class="cl">testing_df &lt;- house1[-index, ]
+</span></span><span class="line"><span class="cl"># Store the training/testing data features
+</span></span><span class="line"><span class="cl">train_features &lt;- training_df[,-3]
+</span></span><span class="line"><span class="cl">test_features &lt;- testing_df[, -3]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Store the actual labels
+</span></span><span class="line"><span class="cl">train_classes &lt;- training_df$X3
+</span></span><span class="line"><span class="cl">test_classes &lt;- testing_df$X3
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">house_kd = knn(train = train_features, test = test_features, cl = train_classes, k = 5, algorithm=c(&#34;kd_tree&#34;))
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">confusionMatrix(data = house_kd, reference = as.factor(test_classes))
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="confusion-matrix">Confusion Matrix</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">confusion.table = table(&#34;predicted&#34; = house_kd, &#34;actual&#34; = as.factor(test_classes))
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">plt &lt;- as.data.frame(confusion.table)
+</span></span><span class="line"><span class="cl">plt$predicted &lt;- factor(plt$predicted, levels=rev(levels(plt$predicted)))
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ggplot(plt, aes(actual,predicted, fill= Freq)) +
+</span></span><span class="line"><span class="cl">        geom_tile() + geom_text(aes(label=Freq)) +
+</span></span><span class="line"><span class="cl">        scale_fill_gradient(low=&#34;white&#34;, high=&#34;#CF4420&#34;) +
+</span></span><span class="line"><span class="cl">        labs(x = &#34;Reference&#34;,y = &#34;Prediction&#34;) +
+</span></span><span class="line"><span class="cl">        scale_x_discrete(labels=c(&#34;245&#34;,&#34;269.5&#34;,&#34;294&#34;,&#34;318.5&#34;,&#34;343&#34;,&#34;367.5&#34;,&#34;416.5&#34;),  position = &#34;top&#34;) +
+</span></span><span class="line"><span class="cl">        scale_y_discrete(labels=c(&#34;416.5&#34;,&#34;367.5&#34;,&#34;343&#34;,&#34;318.5&#34;,&#34;294&#34;,&#34;269.5&#34;,&#34;245&#34;))
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<p><img src="/p/kd-trees-and-ball-trees/img/kd_house_cm.png"
+	width="2689"
+	height="1823"
+	srcset="/p/kd-trees-and-ball-trees/img/kd_house_cm_hu18608a10de6c6646d36f37e532f86e11_209258_480x0_resize_box_3.png 480w, /p/kd-trees-and-ball-trees/img/kd_house_cm_hu18608a10de6c6646d36f37e532f86e11_209258_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="Confusion Matrix"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="147"
+		data-flex-basis="354px"
+	
+></p>
+<h2 id="ball-tree-approach">Ball Tree Approach</h2>
+<h2 id="knn-approach">kNN Approach</h2>
+<p>For reference, we will show the kNN approach of classifying our data set</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">knn(train = train_features, test = test_features, cl = train_classes, k = 5, algorithm=c(&#34;brute&#34;))
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/r/">R</a>
+        
+            <a href="/tags/markdown/">Markdown</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2023 James Lawton
+    </section>
+    
+    <section class="powerby">
+        
+            Eyy Lmao <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

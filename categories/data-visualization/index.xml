@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Data Visualization on James Lawton</title>
+        <link>https://JamesL813.github.io/categories/data-visualization/</link>
+        <description>Recent content in Data Visualization on James Lawton</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Tue, 25 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://JamesL813.github.io/categories/data-visualization/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>KD Trees and Ball Trees</title>
+        <link>https://JamesL813.github.io/p/kd-trees-and-ball-trees/</link>
+        <pubDate>Tue, 25 Apr 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://JamesL813.github.io/p/kd-trees-and-ball-trees/</guid>
+        <description>&lt;img src="https://JamesL813.github.io/img/ball_tree_diagram.jpg" alt="Featured image of post KD Trees and Ball Trees" /&gt;&lt;h2 id=&#34;motivation&#34;&gt;Motivation&lt;/h2&gt;
+&lt;p&gt;Imagine we are interested in determining the CMDA 4654 classmate that lives nearest to us. The “brute force” approach would be to ask each classmate where they live (i.e. make the search region , compute the distance between their house and ours, and then select the minimum distance. This is quite computationally expensive. In fact, it has a time complexity of O(2n), assuming 2-dimensional distance computations. &lt;br&gt;
+&lt;br&gt;
+A better approach might be to partition the class into different groups based on the broader attributes of their location. For instance, we can ask everyone who lives in Blacksburg to stand on one side of the classroom, while those that don’t (i.e. live in Christiansburg) stand on the other. Then, if we live in Blacksburg, we are able to reduce the size of the group that we compute our distance to. &lt;br&gt;
+&lt;br&gt;
+We can continue to partition the group based on other factors (i.e. on-campus vs off-campus, north vs south, etc) to further reduce the size of the search group. Then, the time complexity of our algorithm is going to be O(n+log(n)), which is much better than vanilla kNN.&lt;br&gt;
+&lt;br&gt;
+However, we might find someone who lives on the edge of campus and whose nearest neighbor is off-campus, which will never be found due to the clustering nature of this algorithm.&lt;br&gt;
+&lt;br&gt;
+This idea of partitioning the data into subsets that will later be used to search for nearest neighbor within that subset (and hope that it’s the global nearest neighbor) is the idea behind clustering using k-d trees and ball trees.&lt;/p&gt;
+&lt;h2 id=&#34;intro-to-decision-trees&#34;&gt;Intro to Decision Trees&lt;/h2&gt;
+&lt;p&gt;A tree is a common data structure composed of a hierarchical structure with branch nodes, and leaf nodes. They can be useful for providing a visual representation for a data set or model. &lt;br&gt;
+&lt;br&gt;
+A binary tree is one of the simplest implementations of the structure. It’s simply a way of storing a set of ordered data. The rules that make up a binary tree are as follows:&lt;br&gt;
+\&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Each node must have at most 2 children&lt;/li&gt;
+&lt;li&gt;A node’s left child must come before it&lt;/li&gt;
+&lt;li&gt;A node’s right child must come after it.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Using these simple rules, we can create a data structure that is computationally efficient to retrieve data from.\&lt;/p&gt;
+&lt;p&gt;Notice that each node in this example tree not only stores a data point, but it also represents a decision that each incoming data point has to make as it goes through the tree. Whether the result of this decision is true or false determines which direction the point will move next.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://JamesL813.github.io/p/kd-trees-and-ball-trees/img/intro_to_decision_tree_graph.png&#34;
+	width=&#34;505&#34;
+	height=&#34;442&#34;
+	srcset=&#34;https://JamesL813.github.io/p/kd-trees-and-ball-trees/img/intro_to_decision_tree_graph_hu04e33ba3a4d7e94c30cb7e311964b447_21767_480x0_resize_box_3.png 480w, https://JamesL813.github.io/p/kd-trees-and-ball-trees/img/intro_to_decision_tree_graph_hu04e33ba3a4d7e94c30cb7e311964b447_21767_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Binary Search Tree&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;114&#34;
+		data-flex-basis=&#34;274px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;kd-trees&#34;&gt;KD Trees&lt;/h2&gt;
+&lt;p&gt;A K-D tree (or a K-dimensional tree) is a special type of decision tree that can organize data for efficient spatial search or nearest-neighbor search within K-dimensional space.&lt;br&gt;
+&lt;br&gt;
+In data modeling, each one of K dimensions normally represents a specific feature of the data set.&lt;br&gt;
+&lt;br&gt;
+The basic idea of k-d trees is to partition our feature space along the axes and prune subtrees that are too far away from our nearest neighbor(s) (essentially depth first search with pruning).&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://JamesL813.github.io/p/kd-trees-and-ball-trees/img/kdtrees_pic.png&#34;
+	width=&#34;572&#34;
+	height=&#34;242&#34;
+	srcset=&#34;https://JamesL813.github.io/p/kd-trees-and-ball-trees/img/kdtrees_pic_huaeb8696dc0c495cc4337f29b70c7fd6b_53351_480x0_resize_box_3.png 480w, https://JamesL813.github.io/p/kd-trees-and-ball-trees/img/kdtrees_pic_huaeb8696dc0c495cc4337f29b70c7fd6b_53351_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;KD Trees [Source: Carnegie Mellon]&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;236&#34;
+		data-flex-basis=&#34;567px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;process&#34;&gt;Process&lt;/h2&gt;
+&lt;p&gt;The basic idea of k-d trees is to partition our feature space along the axes and prune subtrees that are too far away from our nearest neighbor(s).&lt;br&gt;
+\&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;We construct the tree by partitioning our data into halves along one feature&lt;/li&gt;
+&lt;li&gt;We then rotate through our features based on which of them have the largest maximum variance and continue partitioning our data.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;br&gt;
+When considering a test point and its nearest neighbors, we calculate the distance between them, call it $x_d$
+\&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Compare $x_d$ to the distance between the point and the partition, $x_p$&lt;/li&gt;
+&lt;li&gt;If $x_p &amp;gt; x_d$, we can prune that subtree&lt;/li&gt;
+&lt;li&gt;If $x_p &amp;lt; x_d$, recalculate nearest neighbor&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;br&gt;
+Continue until all leaf nodes have been visited.&lt;/p&gt;
+&lt;h2 id=&#34;limitations&#34;&gt;Limitations&lt;/h2&gt;
+&lt;p&gt;K-d trees are really only effective in low dimensional spaces and is not very accurate in high dimensional spaces.&lt;br&gt;
+\&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;In higher dimensions, the points end up being close to every partition (i.e. a million partition lines)&lt;/li&gt;
+&lt;li&gt;Partitions are along axes and span the entire feature space, which proves to be problematic as the number of features grows&lt;/li&gt;
+&lt;li&gt;Nearest neighbors begins to lose meaning since the distance between the closest and farthest point are very similar.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;example-the-iris-dataset&#34;&gt;Example: The IRIS Dataset&lt;/h2&gt;
+&lt;p&gt;We will use the Iris data to demonstrate KD trees using&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://JamesL813.github.io/p/kd-trees-and-ball-trees/img/kd_box1.png&#34;
+	width=&#34;394&#34;
+	height=&#34;320&#34;
+	srcset=&#34;https://JamesL813.github.io/p/kd-trees-and-ball-trees/img/kd_box1_hu1c908732a4bdfe0f8c92c99bc0e57377_27367_480x0_resize_box_3.png 480w, https://JamesL813.github.io/p/kd-trees-and-ball-trees/img/kd_box1_hu1c908732a4bdfe0f8c92c99bc0e57377_27367_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;KD Tree 1&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;123&#34;
+		data-flex-basis=&#34;295px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;img src=&#34;https://JamesL813.github.io/p/kd-trees-and-ball-trees/img/kd_box2.png&#34;
+	width=&#34;394&#34;
+	height=&#34;321&#34;
+	srcset=&#34;https://JamesL813.github.io/p/kd-trees-and-ball-trees/img/kd_box2_huafa4ea0738b4e8dbee7e39d7197906e6_27905_480x0_resize_box_3.png 480w, https://JamesL813.github.io/p/kd-trees-and-ball-trees/img/kd_box2_huafa4ea0738b4e8dbee7e39d7197906e6_27905_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;KD Tree 2&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;122&#34;
+		data-flex-basis=&#34;294px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;img src=&#34;https://JamesL813.github.io/p/kd-trees-and-ball-trees/img/kd_box3.png&#34;
+	width=&#34;979&#34;
+	height=&#34;792&#34;
+	srcset=&#34;https://JamesL813.github.io/p/kd-trees-and-ball-trees/img/kd_box3_hueb654af92ec2427c686e6d81f28d5ea9_119668_480x0_resize_box_3.png 480w, https://JamesL813.github.io/p/kd-trees-and-ball-trees/img/kd_box3_hueb654af92ec2427c686e6d81f28d5ea9_119668_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;KD Tree 3&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;123&#34;
+		data-flex-basis=&#34;296px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Code to draw these rectangles in R:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;library(ggplot2)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ggplot(iris, aes(x=Petal.Length, y=Petal.Width, col=Species)) + geom_point() + 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  labs(x=&amp;#34;Petal Length&amp;#34;, y=&amp;#34;Petal Width&amp;#34;, title = &amp;#34;Petal Length vs. Petal Width&amp;#34;) + theme_bw() + 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  #geom_vline(xintercept = median(iris$Petal.Length)) + 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  geom_rect(aes(xmin=4.35, xmax=6.9, ymin=1.8, ymax=2.5), fill=NA, color=&amp;#34;blue&amp;#34;, alpha=0.25) + 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  geom_rect(aes(xmin=4.35, xmax=6.9, ymin=0, ymax=1.8), fill=NA, color=&amp;#34;blue&amp;#34;, alpha=0.25) + 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  geom_rect(aes(xmin=0, xmax=4.35, ymin=0.3, ymax=2.5), fill=NA, color=&amp;#34;blue&amp;#34;, alpha=0.25) + 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  geom_rect(aes(xmin=0, xmax=4.35, ymin=0, ymax=0.3), fill=NA, color=&amp;#34;blue&amp;#34;, alpha=0.25) + 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  geom_rect(aes(xmin=3.85, xmax=4.35, ymin=0.3, ymax=2.5), fill=NA, color=&amp;#34;green&amp;#34;, alpha=0.25) +
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  geom_rect(aes(xmin=0, xmax=3.85, ymin=0.3, ymax=2.5), fill=NA, color=&amp;#34;green&amp;#34;, alpha=0.25) + 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  geom_rect(aes(xmin=0, xmax=1.4, ymin=0, ymax=0.3), fill=NA, color=&amp;#34;green&amp;#34;, alpha=0.25) + 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  geom_rect(aes(xmin=1.4, xmax=4.35, ymin=0, ymax=0.3), fill=NA, color=&amp;#34;green&amp;#34;, alpha=0.25) + 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  geom_rect(aes(xmin=4.35, xmax=4.6, ymin=0, ymax=1.8), fill=NA, color=&amp;#34;green&amp;#34;, alpha=0.25) + 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  geom_rect(aes(xmin=4.6, xmax=6.9, ymin=0, ymax=1.8), fill=NA, color=&amp;#34;green&amp;#34;, alpha=0.25) + 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  geom_rect(aes(xmin=4.35, xmax=5.6, ymin=1.8, ymax=2.5), fill=NA, color=&amp;#34;green&amp;#34;, alpha=0.25) +
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  geom_rect(aes(xmin=5.6, xmax=6.9, ymin=1.8, ymax=2.5), fill=NA, color=&amp;#34;green&amp;#34;, alpha=0.25)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;hr&gt;
+&lt;p&gt;&lt;img src=&#34;https://JamesL813.github.io/p/kd-trees-and-ball-trees/img/kd_box4.png&#34;
+	width=&#34;965&#34;
+	height=&#34;789&#34;
+	srcset=&#34;https://JamesL813.github.io/p/kd-trees-and-ball-trees/img/kd_box4_hub6e0809dc7a252b9d414e61530065603_85177_480x0_resize_box_3.png 480w, https://JamesL813.github.io/p/kd-trees-and-ball-trees/img/kd_box4_hub6e0809dc7a252b9d414e61530065603_85177_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;KD Tree 4&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;122&#34;
+		data-flex-basis=&#34;293px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;ball-trees&#34;&gt;Ball trees&lt;/h2&gt;
+&lt;p&gt;A ball tree is a space partitioning data structure for organizing points in a multidimensional space. &lt;br&gt;
+&lt;br&gt;
+Each internal node partitions the data into two disjoint sets which are associated with different balls. Each point is assigned to the ball with the closest center.&lt;/p&gt;
+&lt;p&gt;$$
+D^B (t) =
+\begin{cases}
+\max( |t - B.pivot | - B.radius, D^{B.parent} ),\quad \text{ if }B \neq R \
+\max( |t - B.pivot | - B.radius, D^{B.parent}, 0 ), \text{ if }B = R \
+\end{cases}
+$$&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://JamesL813.github.io/p/kd-trees-and-ball-trees/img/ball_tree_diagram.png&#34;
+	width=&#34;1319&#34;
+	height=&#34;739&#34;
+	srcset=&#34;https://JamesL813.github.io/p/kd-trees-and-ball-trees/img/ball_tree_diagram_hud8d3d15a230b5af5a6a5d95c7875bd46_191053_480x0_resize_box_3.png 480w, https://JamesL813.github.io/p/kd-trees-and-ball-trees/img/ball_tree_diagram_hud8d3d15a230b5af5a6a5d95c7875bd46_191053_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;ball tree diagram&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;178&#34;
+		data-flex-basis=&#34;428px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;motivation-1&#34;&gt;Motivation&lt;/h2&gt;
+&lt;p&gt;The ball tree algorithm is similar to k-d trees in that they both partition in terms of the feature space, but unlike k-d trees, the trees are partitioned into hyperplane spheres instead of boxes. &lt;br&gt;
+&lt;br&gt;
+While ball tree performance may suffer in lower dimensional feature spaces,
+Ball tree performance of with O(n log(n)) is still better than kNN training speed of O(nd)&lt;/p&gt;
+&lt;h2 id=&#34;example-the-iris-dataset-1&#34;&gt;Example: The IRIS dataset&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;source(&amp;#34;ball_tree.R&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; # scales all numeric columns
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;iris_scaled &amp;lt;- iris %&amp;gt;%
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  mutate_if(is.numeric, scale)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#                    columns to plot
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;isc &amp;lt;- iris_scaled[, c(3:4)]
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# builds the tree
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;bt &amp;lt;- build_ball_tree(isc, c(1:nrow(isc), min_points = 2))
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ggplot() + geom_balltree(bt, max_depth = 4) +
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    geom_point(
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        data = iris_scaled,
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        pch = 21,
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        size = 3,
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        aes(x = Petal.Length, y = Petal.Width, fill = Species)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ) +
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    theme_classic() + scale_colour_stepsn(colors = c(&amp;#34;purple4&amp;#34;,&amp;#34;red&amp;#34;,&amp;#34;orange1&amp;#34;))
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;hr&gt;
+&lt;p&gt;&lt;img src=&#34;https://JamesL813.github.io/p/kd-trees-and-ball-trees/img/iris_petal_ball.png&#34;
+	width=&#34;3000&#34;
+	height=&#34;2550&#34;
+	srcset=&#34;https://JamesL813.github.io/p/kd-trees-and-ball-trees/img/iris_petal_ball_hue56fb58cda12bf7feaa75f33b6f278e0_584223_480x0_resize_box_3.png 480w, https://JamesL813.github.io/p/kd-trees-and-ball-trees/img/iris_petal_ball_hue56fb58cda12bf7feaa75f33b6f278e0_584223_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;117&#34;
+		data-flex-basis=&#34;282px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;housing-data&#34;&gt;Housing Data&lt;/h2&gt;
+&lt;p&gt;The housing data we chose to use analyzed 12 different building shapes. Each building differs with respect to the glazing area, the glazing area distribution, and the orientation, amongst other parameters. With the data being found &lt;a class=&#34;link&#34; href=&#34;https://drive.google.com/drive/u/1/folders/1W_Qc1XoOJUjNWN14925pfaIVZKvrBahP&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Definition&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;X1&lt;/td&gt;
+&lt;td&gt;Relative Compactness&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;X2&lt;/td&gt;
+&lt;td&gt;Surface Area&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;X3&lt;/td&gt;
+&lt;td&gt;Wall Area&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;X4&lt;/td&gt;
+&lt;td&gt;Roof Area&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;X5&lt;/td&gt;
+&lt;td&gt;Overall Height&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;X6&lt;/td&gt;
+&lt;td&gt;Orientation&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;X7&lt;/td&gt;
+&lt;td&gt;Glazing Area&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;X8&lt;/td&gt;
+&lt;td&gt;Glazing Area Distribution&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;y1&lt;/td&gt;
+&lt;td&gt;Heating Load&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;y2&lt;/td&gt;
+&lt;td&gt;Cooling Load&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;kd-tree-approach&#34;&gt;KD tree approach&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;library(FNN)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;library(caret)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;house = read.csv(&amp;#34;data/ENB2012_data.csv&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;house1 = house[c(1:768),-c(6,8)]
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;index &amp;lt;- sample(1:nrow(house1), round(nrow(house1) * 0.7))
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;training_df &amp;lt;- house1[index, ]
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;testing_df &amp;lt;- house1[-index, ]
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Store the training/testing data features
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;train_features &amp;lt;- training_df[,-3]
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;test_features &amp;lt;- testing_df[, -3]
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Store the actual labels
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;train_classes &amp;lt;- training_df$X3
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;test_classes &amp;lt;- testing_df$X3
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;house_kd = knn(train = train_features, test = test_features, cl = train_classes, k = 5, algorithm=c(&amp;#34;kd_tree&amp;#34;))
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;confusionMatrix(data = house_kd, reference = as.factor(test_classes))
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;confusion-matrix&#34;&gt;Confusion Matrix&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;confusion.table = table(&amp;#34;predicted&amp;#34; = house_kd, &amp;#34;actual&amp;#34; = as.factor(test_classes))
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;plt &amp;lt;- as.data.frame(confusion.table)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;plt$predicted &amp;lt;- factor(plt$predicted, levels=rev(levels(plt$predicted)))
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ggplot(plt, aes(actual,predicted, fill= Freq)) +
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        geom_tile() + geom_text(aes(label=Freq)) +
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        scale_fill_gradient(low=&amp;#34;white&amp;#34;, high=&amp;#34;#CF4420&amp;#34;) +
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        labs(x = &amp;#34;Reference&amp;#34;,y = &amp;#34;Prediction&amp;#34;) +
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        scale_x_discrete(labels=c(&amp;#34;245&amp;#34;,&amp;#34;269.5&amp;#34;,&amp;#34;294&amp;#34;,&amp;#34;318.5&amp;#34;,&amp;#34;343&amp;#34;,&amp;#34;367.5&amp;#34;,&amp;#34;416.5&amp;#34;),  position = &amp;#34;top&amp;#34;) +
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        scale_y_discrete(labels=c(&amp;#34;416.5&amp;#34;,&amp;#34;367.5&amp;#34;,&amp;#34;343&amp;#34;,&amp;#34;318.5&amp;#34;,&amp;#34;294&amp;#34;,&amp;#34;269.5&amp;#34;,&amp;#34;245&amp;#34;))
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;hr&gt;
+&lt;p&gt;&lt;img src=&#34;https://JamesL813.github.io/p/kd-trees-and-ball-trees/img/kd_house_cm.png&#34;
+	width=&#34;2689&#34;
+	height=&#34;1823&#34;
+	srcset=&#34;https://JamesL813.github.io/p/kd-trees-and-ball-trees/img/kd_house_cm_hu18608a10de6c6646d36f37e532f86e11_209258_480x0_resize_box_3.png 480w, https://JamesL813.github.io/p/kd-trees-and-ball-trees/img/kd_house_cm_hu18608a10de6c6646d36f37e532f86e11_209258_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Confusion Matrix&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;147&#34;
+		data-flex-basis=&#34;354px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;ball-tree-approach&#34;&gt;Ball Tree Approach&lt;/h2&gt;
+&lt;h2 id=&#34;knn-approach&#34;&gt;kNN Approach&lt;/h2&gt;
+&lt;p&gt;For reference, we will show the kNN approach of classifying our data set&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;knn(train = train_features, test = test_features, cl = train_classes, k = 5, algorithm=c(&amp;#34;brute&amp;#34;))
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+        </item>
+        
+    </channel>
+</rss>
